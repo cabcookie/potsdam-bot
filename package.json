@@ -35,6 +35,7 @@
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "aws-cdk": "2.8.0",
+    "esbuild": "^0.14.13",
     "jest": "^26.4.2",
     "standard-version": "^9.3.2",
     "ts-jest": "^26.2.0",
