@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/cabcookie/potsdam-bot/compare/v0.1.6...v0.1.7) (2022-01-25)
+
+
+### Bug Fixes
+
+* updated typescript to make cheerio work ([6a712db](https://github.com/cabcookie/potsdam-bot/commit/6a712dbad29789ae194c38270b295817f791f8ed))
+
 ### [0.1.6](https://github.com/cabcookie/potsdam-bot/compare/v0.1.5...v0.1.6) (2022-01-25)
 
 
