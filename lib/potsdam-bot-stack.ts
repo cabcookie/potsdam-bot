@@ -1,16 +1,25 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
+import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { githubRepo } from '../config';
+import { StageLambdaCrawler } from './stage-lambda-crawler';
 
 export class PotsdamBotStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const pipeline = new CodePipeline(this, 'PotsdamBotPipeline', {
+      pipelineName: 'PotsdamBot',
+      synth: new ShellStep('Synth', {
+        input: CodePipelineSource.gitHub(githubRepo, 'main'),
+        commands: [
+          'npm ci',
+          'npm run build',
+          'npx cdk synth',
+        ],
+      }),
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'PotsdamBotQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const stageCrawler = pipeline.addStage(new StageLambdaCrawler(this, 'StageLambdaCrawler'));
   }
 }
