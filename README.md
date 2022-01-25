@@ -1,4 +1,4 @@
-# `potsdam-bot``
+# `potsdam-bot`
 
 This bot exist to organize a meeting in the Bürgerbüro. It is hard to get a slot, so this bot should register one automatically if one is available. It will inform you via SMS if a slot it booked.
 
