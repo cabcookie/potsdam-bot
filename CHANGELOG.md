@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/cabcookie/potsdam-bot/compare/v0.1.1...v0.1.2) (2022-01-25)
+
+
+### Bug Fixes
+
+* starting with a very simple Lambda ([c6fa12c](https://github.com/cabcookie/potsdam-bot/commit/c6fa12ce85513a502b1546398d61a48d72a91fbe))
+
 ### 0.1.1 (2022-01-25)
 
 
