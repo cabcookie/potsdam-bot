@@ -13,7 +13,7 @@ export class LambdaCrawlerStack extends Stack {
       functionName: 'crawlPotsdamPage',
       runtime: Runtime.NODEJS_14_X,
       handler: 'handler',
-      // timeout: Duration.minutes(5),
+      timeout: Duration.minutes(1),
       // memorySize: 2048,
       entry: './functions/crawl-page/index.ts',
       // bundling: {
@@ -23,7 +23,7 @@ export class LambdaCrawlerStack extends Stack {
     });
 
     const rule = new Rule(this, 'CronJobToRunCrawler', {
-      schedule: Schedule.rate(Duration.minutes(1)),
+      schedule: Schedule.rate(Duration.minutes(60)),
     });
 
     rule.addTarget(new LambdaFunction(lambdaCrawler));
