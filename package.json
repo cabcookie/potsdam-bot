@@ -1,21 +1,43 @@
 {
   "name": "potsdam-bot",
   "version": "0.1.0",
+  "description": "This bot exist to organize a meeting in the Bürgerbüro. It is hard to get a slot, so this bot should register one automatically if one is available. It will inform you via SMS if a slot it booked.",
   "bin": {
     "potsdam-bot": "bin/potsdam-bot.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cabcookie/potsdam-bot.git"
+  },
+  "keywords": [
+    "government",
+    "non-digitalized",
+    "AWS",
+    "CDK"
+  ],
+  "author": "Carsten Koch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cabcookie/potsdam-bot/issues"
+  },
+  "homepage": "https://github.com/cabcookie/potsdam-bot#readme",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "push": "git push --follow-tags origin main",
+    "release": "standard-version",
+    "major-release": "standard-version --release-as major",
+    "publish": "npm run release && npm run push"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
     "aws-cdk": "2.8.0",
+    "jest": "^26.4.2",
+    "standard-version": "^9.3.2",
+    "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
