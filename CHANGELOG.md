@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/cabcookie/potsdam-bot/compare/v0.1.3...v0.1.4) (2022-01-25)
+
+
+### Features
+
+* change cron job to 30 sec ([db46740](https://github.com/cabcookie/potsdam-bot/commit/db46740a19bbd48000bb4ff7dcbd0c88642f5006))
+
 ### [0.1.3](https://github.com/cabcookie/potsdam-bot/compare/v0.1.2...v0.1.3) (2022-01-25)
 
 
