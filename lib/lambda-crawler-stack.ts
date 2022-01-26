@@ -4,6 +4,7 @@ import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Bucket, BucketEncryption } from "aws-cdk-lib/aws-s3";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
 
@@ -12,6 +13,11 @@ export class LambdaCrawlerStack extends Stack {
     super(scope, id, props);
 
     const email = Secret.fromSecretNameV2(this, 'Email', 'myPersonalIdentifiableInformation');
+
+    const screenshotsBucket = new Bucket(this, 'ScreenshotBucket', {
+      bucketName: 'potdam-bot-screenshots',
+      encryption: BucketEncryption.S3_MANAGED,
+    });
 
     const lambdaCrawler = new NodejsFunction(this, 'CrawlPotsdamPage', {
       functionName: 'crawlPotsdamPage',
@@ -30,6 +36,7 @@ export class LambdaCrawlerStack extends Stack {
       environment: {
         REGION: this.region,
         EMAIL: email.secretValueFromJson('email').toString(),
+        BUCKETNAME: screenshotsBucket.bucketName,
       }
     });
 
@@ -44,6 +51,8 @@ export class LambdaCrawlerStack extends Stack {
         `arn:aws:ses:${this.region}:${Stack.of(this).account}:identity/${email.secretValueFromJson('email').toString()}`,
       ],
     }));
+
+    screenshotsBucket.grantWrite(lambdaCrawler);
 
     const rule = new Rule(this, 'CronJobToRunCrawler', {
       schedule: Schedule.rate(Duration.minutes(60)),
