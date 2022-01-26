@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.18](https://github.com/cabcookie/potsdam-bot/compare/v0.1.17...v0.1.18) (2022-01-26)
+
+
+### Bug Fixes
+
+* headless browser does not start ([cf8d5ca](https://github.com/cabcookie/potsdam-bot/commit/cf8d5caadf96467eead12c27563d838e438caa88))
+* headless browser doesn't start ([14cd331](https://github.com/cabcookie/potsdam-bot/commit/14cd331d5420df24f08c8f413c14f82c577d1dbf))
+
 ### [0.1.17](https://github.com/cabcookie/potsdam-bot/compare/v0.1.16...v0.1.17) (2022-01-26)
 
 
