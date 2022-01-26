@@ -102,7 +102,7 @@ const sendEmail = async (region: string, email: string, message: string) => {
   return JSON.stringify(logMessage);
 };
 
-exports.handler = async () => {
+export const handler = async () => {
   const region = process.env.REGION;
   const email = process.env.EMAIL;
   
