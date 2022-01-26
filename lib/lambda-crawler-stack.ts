@@ -29,7 +29,7 @@ export class LambdaCrawlerStack extends Stack {
       bundling: {
         externalModules: [
           'aws-sdk',
-          'puppeteer-core',
+          // 'puppeteer-core',
         ],
       },
       environment: {
