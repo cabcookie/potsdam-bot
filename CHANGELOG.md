@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/cabcookie/potsdam-bot/compare/v0.1.13...v0.1.14) (2022-01-26)
+
+
+### Features
+
+* adding image to html email ([28b6694](https://github.com/cabcookie/potsdam-bot/commit/28b6694c1806a3a2fe5e5ee3a477c044f1e09735))
+
+
+### Bug Fixes
+
+* change export of handler ([1de7716](https://github.com/cabcookie/potsdam-bot/commit/1de7716ba5b924720b4cc5e219ca09332fcdb2e7))
+
 ### [0.1.13](https://github.com/cabcookie/potsdam-bot/compare/v0.1.12...v0.1.13) (2022-01-26)
 
 
