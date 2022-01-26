@@ -36,6 +36,8 @@ export type ContactDetails = {
 };
 
 const getHtmlContent = ({name, email, message}: ContactDetails) => {
+  const image = `data:image/png;base64,${readFileSync(filenameFirstPicture).toString('base64')}`;
+
   return `
     <html>
       <body>
@@ -45,6 +47,7 @@ const getHtmlContent = ({name, email, message}: ContactDetails) => {
           <li style="font-size:18px">👤 <b>${name}</b></li>
           <li style="font-size:18px">✉️ <b>${email}</b></li>
         </ul>
+        <img src="${image}" />
         <p style="font-size:18px">${message}</p>
       </body>
     </html> 
