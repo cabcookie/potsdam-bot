@@ -23,8 +23,8 @@ export class LambdaCrawlerStack extends Stack {
       bundling: {
         externalModules: [
           'aws-sdk',
-          'chrome-aws-lambda',
-          'puppeteer-core',
+          // 'chrome-aws-lambda',
+          // 'puppeteer-core',
         ],
       },
       environment: {
