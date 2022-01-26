@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/cabcookie/potsdam-bot/compare/v0.1.14...v0.1.15) (2022-01-26)
+
+
+### Bug Fixes
+
+* only creating a screenshot ([b848de2](https://github.com/cabcookie/potsdam-bot/commit/b848de20c129e29eadec964e103797a8f45eb3d9))
+
 ### [0.1.14](https://github.com/cabcookie/potsdam-bot/compare/v0.1.13...v0.1.14) (2022-01-26)
 
 
