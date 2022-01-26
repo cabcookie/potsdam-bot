@@ -1,6 +1,4 @@
-import { SES } from "aws-sdk";
-import { SendEmailRequest } from "aws-sdk/clients/ses";
-import { existsSync, mkdirSync, readFileSync, readSync } from "fs";
+import { existsSync, mkdirSync } from "fs";
 import { launch, Page } from 'puppeteer';
 
 const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
@@ -29,82 +27,6 @@ const createScreenshot = async (page: Page, filename: string) => {
   console.log("Screenshot created:", fullFilename);
 };
 
-export type ContactDetails = {
-  name: string;
-  email: string;
-  message: string;
-};
-
-const getHtmlContent = ({name, email, message}: ContactDetails) => {
-  const image = `data:image/png;base64,${readFileSync(filenameFirstPicture).toString('base64')}`;
-
-  return `
-    <html>
-      <body>
-        <h1>Received an Email. 📬</h1>
-        <h2>Sent from: </h2>
-        <ul>
-          <li style="font-size:18px">👤 <b>${name}</b></li>
-          <li style="font-size:18px">✉️ <b>${email}</b></li>
-        </ul>
-        <img src="${image}" />
-        <p style="font-size:18px">${message}</p>
-      </body>
-    </html> 
-  `;
-}
-
-const getTextContent = ({name, email, message}: ContactDetails) => {
-  return `
-    Received an Email. 📬
-    Sent from:
-        👤 ${name}
-        ✉️ ${email}
-    ${message}
-  `;
-}
-const sendEmailParams = ({ name, email, message }: ContactDetails): SendEmailRequest => {
-  return {
-    Destination: {
-      ToAddresses: [email],
-    },
-    Message: {
-      Subject: {
-        Charset: 'UTF-8',
-        Data: 'Nachricht vom PotsdamBot',
-      },
-      Body: {
-        Html: {
-          Charset: 'UTF-8',
-          Data: getHtmlContent({ name, email, message }),
-        },
-        Text: {
-          Charset: 'UTF-8',
-          Data: getTextContent({ name, email, message }),
-        },
-      },
-    },
-    Source: email,
-  }
-};
-
-const sendEmail = async (region: string, email: string, message: string) => {
-  const ses = new SES({ region });
-  await ses.sendEmail(sendEmailParams({
-    name: 'PotsdamBot',
-    email,
-    message,
-  })).promise();
-
-  const logMessage = {
-    body: { message: 'Email sent successfully 🎉🎉🎉' },
-    statusCode: 200,
-  };
-  console.log(logMessage);
-  
-  return JSON.stringify(logMessage);
-};
-
 export const handler = async () => {
   const region = process.env.REGION;
   const email = process.env.EMAIL;
@@ -119,7 +41,13 @@ export const handler = async () => {
     await page.goto(potsdamUrl);
     await createScreenshot(page, 'homepage');
 
-    return await sendEmail(region, email, 'This is my awesome test message!');
+    const logMessage = {
+      statusCode: 200,
+      body: { message: 'Screensshot successfully created.' },
+    }
+    console.log(logMessage);
+
+    return JSON.stringify(logMessage);
 
   } catch (error) {
     console.log('ERROR:', error);
