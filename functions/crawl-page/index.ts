@@ -4,7 +4,8 @@ import { existsSync, mkdirSync, readFileSync, readSync } from "fs";
 import { launch, Page } from 'puppeteer';
 
 const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
-if (!existsSync('pics')) mkdirSync('pics');
+const baseDir = '/tmp/pics'
+if (!existsSync(baseDir)) mkdirSync(baseDir);
 
 const dateStr = new Date().toISOString().substring(0,16).replace(/-/g, "").replace(/:/g, "");
 let picNumber = 0;
@@ -19,7 +20,7 @@ const createScreenshot = async (page: Page, filename: string) => {
   picNumber++;
   const lengthId = 5 - ` ${picNumber}`.length;
   const nulls = new Array(lengthId).join('0');
-  const fullFilename = `pics/${dateStr}-${nulls}${picNumber}-${filename}.png`;
+  const fullFilename = `${baseDir}/${dateStr}-${nulls}${picNumber}-${filename}.png`;
   if (picNumber == 1) {
     filenameFirstPicture = fullFilename;
   }
