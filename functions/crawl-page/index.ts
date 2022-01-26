@@ -1,7 +1,6 @@
 import chromium from 'chrome-aws-lambda';
 // import { createTransport } from 'nodemailer';
 import { SES, S3 } from "aws-sdk";
-// import { Page } from "puppeteer-core";
 
 const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
 
