@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/cabcookie/potsdam-bot/compare/v0.1.12...v0.1.13) (2022-01-26)
+
+
+### Bug Fixes
+
+* allow Lambda to send emails ([05c1135](https://github.com/cabcookie/potsdam-bot/commit/05c11351b3a0852de027b01340c4552b6025f570))
+* put files in tmp dir only ([d17039f](https://github.com/cabcookie/potsdam-bot/commit/d17039f281d4ffcca408b74187f5ad1153011a6b))
+
 ### [0.1.12](https://github.com/cabcookie/potsdam-bot/compare/v0.1.11...v0.1.12) (2022-01-26)
 
 
