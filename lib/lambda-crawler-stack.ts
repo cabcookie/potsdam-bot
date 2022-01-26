@@ -16,7 +16,7 @@ export class LambdaCrawlerStack extends Stack {
       functionName: 'crawlPotsdamPage',
       runtime: Runtime.NODEJS_14_X,
       handler: 'handler',
-      timeout: Duration.minutes(1),
+      timeout: Duration.minutes(5),
       // memorySize: 2048,
       entry: './functions/crawl-page/index.ts',
       bundling: {
