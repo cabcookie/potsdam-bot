@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.20](https://github.com/cabcookie/potsdam-bot/compare/v0.1.19...v0.1.20) (2022-01-26)
+
+
+### Bug Fixes
+
+* using puppeteer instead of puppeteer-core ([1f90f2a](https://github.com/cabcookie/potsdam-bot/commit/1f90f2ad52f0771af86cd5993ff09b6dd01708d1))
+
 ### [0.1.19](https://github.com/cabcookie/potsdam-bot/compare/v0.1.18...v0.1.19) (2022-01-26)
 
 
