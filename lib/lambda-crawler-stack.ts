@@ -1,6 +1,7 @@
 import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
@@ -27,6 +28,18 @@ export class LambdaCrawlerStack extends Stack {
         EMAIL: email.secretValueFromJson('email').toString(),
       }
     });
+
+    lambdaCrawler.addToRolePolicy(new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: [
+        'ses:SendEmail',
+        'ses:SendRawEmail',
+        'ses:SendTemplatedEmail',
+      ],
+      resources: [
+        `arn:aws:ses:${this.region}:${Stack.of(this).account}:identity/${email.secretValueFromJson('email').toString()}`,
+      ],
+    }));
 
     const rule = new Rule(this, 'CronJobToRunCrawler', {
       schedule: Schedule.rate(Duration.minutes(60)),
