@@ -18,10 +18,14 @@ export class LambdaCrawlerStack extends Stack {
       runtime: Runtime.NODEJS_14_X,
       handler: 'handler',
       timeout: Duration.minutes(5),
-      // memorySize: 2048,
+      memorySize: 4096,
       entry: './functions/crawl-page/index.ts',
       bundling: {
-        externalModules: ['aws-sdk'],
+        externalModules: [
+          'aws-sdk',
+          'chrome-aws-lambda',
+          'puppeteer-core',
+        ],
       },
       environment: {
         REGION: this.region,
