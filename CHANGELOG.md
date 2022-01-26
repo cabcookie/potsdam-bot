@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.16](https://github.com/cabcookie/potsdam-bot/compare/v0.1.15...v0.1.16) (2022-01-26)
+
+
+### Bug Fixes
+
+* adding chromiumg ([f9c500e](https://github.com/cabcookie/potsdam-bot/commit/f9c500eb21d06ea171fd2253157ea154026c81cf))
+
 ### [0.1.15](https://github.com/cabcookie/potsdam-bot/compare/v0.1.14...v0.1.15) (2022-01-26)
 
 
