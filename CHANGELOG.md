@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/cabcookie/potsdam-bot/compare/v0.1.11...v0.1.12) (2022-01-26)
+
+
+### Features
+
+* get the homepage and send Email ([335d965](https://github.com/cabcookie/potsdam-bot/commit/335d9659223c256bd49dba93443d338a0a1aefc3))
+* increase timeout to 5 minutes ([c005bdf](https://github.com/cabcookie/potsdam-bot/commit/c005bdf0925d5ce5adcbc4e7dac1996fc9477e21))
+
 ### [0.1.11](https://github.com/cabcookie/potsdam-bot/compare/v0.1.10...v0.1.11) (2022-01-26)
 
 
