@@ -1,7 +1,32 @@
 import { SES } from "aws-sdk";
 import { SendEmailRequest } from "aws-sdk/clients/ses";
+import { existsSync, mkdirSync, readFileSync, readSync } from "fs";
+import { launch, Page } from 'puppeteer';
 
 const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
+if (!existsSync('pics')) mkdirSync('pics');
+
+const dateStr = new Date().toISOString().substring(0,16).replace(/-/g, "").replace(/:/g, "");
+let picNumber = 0;
+let filenameFirstPicture = '';
+
+const config = [
+  'Beantragung eines Reisepasses',
+  'Beantragung eines Personalausweises',
+];
+
+const createScreenshot = async (page: Page, filename: string) => {
+  picNumber++;
+  const lengthId = 5 - ` ${picNumber}`.length;
+  const nulls = new Array(lengthId).join('0');
+  const fullFilename = `pics/${dateStr}-${nulls}${picNumber}-${filename}.png`;
+  if (picNumber == 1) {
+    filenameFirstPicture = fullFilename;
+  }
+
+  await page.screenshot({ path: fullFilename});
+  console.log("Screenshot created:", fullFilename);
+};
 
 export type ContactDetails = {
   name: string;
@@ -83,6 +108,12 @@ exports.handler = async () => {
   try {
     if (!region) throw new Error('Region was not provided');
     if (!email) throw new Error('Email address wan not provided');
+
+    const browser = await launch();
+    const page = await browser.newPage();
+
+    await page.goto(potsdamUrl);
+    await createScreenshot(page, 'homepage');
 
     return await sendEmail(region, email, 'This is my awesome test message!');
 
