@@ -2,6 +2,7 @@ import { Context } from 'aws-lambda';
 // import { createTransport } from 'nodemailer';
 import { S3 } from "aws-sdk";
 import * as puppeteer from 'puppeteer';
+import { crawl, CreateAndStoreScreenshotFn } from './crawl';
 
 export const lambdaHandler = async (event: any, context: Context) => {
   const region = process.env.REGION;
@@ -14,19 +15,12 @@ export const lambdaHandler = async (event: any, context: Context) => {
     if (!region) throw new Error('Region was not provided');
     if (!email) throw new Error('Email address was not provided');
     if (!bucketName) throw new Error('Bucket name was not provided');
-    
-    const requestId = new Date().toISOString().substring(0,19).replace(/-/g, "").replace(/:/g, "");
-    let picNumber = 0;
-    console.log('Request ID:', requestId);
-    
+        
     const config = [
       'Beantragung eines Reisepasses',
       'Beantragung eines Personalausweises',
     ];
     
-    const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
-    console.log(`URL: ${potsdamUrl}`);
-
     console.log('Start S3 Service...');    
     const s3 = new S3();
 
@@ -34,20 +28,17 @@ export const lambdaHandler = async (event: any, context: Context) => {
     //   SES: new SES(),
     // });
 
-    const createAndStoreScreenshot = async (filename: string, page: puppeteer.Page) => {
+    const createAndStoreScreenshot: CreateAndStoreScreenshotFn = async (filename: string, page: puppeteer.Page) => {
       const screenshot = await page.screenshot({ fullPage: true }) as Buffer;
-      picNumber++;
-      const nulls = new Array(5 - `${picNumber}`.length).join('0');
-      const fullFilename = `${requestId}/${nulls}-${filename}.png`;
-      console.log('Screenshot created:', fullFilename);
+      console.log('Screenshot created:', filename);
       
       await s3.putObject({
         Bucket: bucketName,
-        Key: fullFilename,
+        Key: filename,
         Body: screenshot,
         ContentType: 'image/png'
       }).promise();
-      console.log(`Screenshot stored on S3: ${bucketName}/${fullFilename}`);
+      console.log(`Screenshot stored on S3: ${bucketName}/${filename}`);
     };
 
     let attempt = 0;
@@ -56,31 +47,10 @@ export const lambdaHandler = async (event: any, context: Context) => {
       console.log(`${attempt}${attempt == 1 ? 'st' : attempt == 2 ? 'nd' : attempt == 3 ? 'rd' : 'th'} attempt...`);
 
       try {
-        console.log('Launch browser...');
-        const browser = await puppeteer.launch({
-          args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--single-process'
-          ]
-        });
-
-        const browserVersion = await browser.version()
-        console.log(`Started ${browserVersion}`);
-        const page = await browser.newPage();
-        page.setDefaultNavigationTimeout(60000);
-        await page.setViewport({ width: 1920, height: 1080 });
+        await crawl(createAndStoreScreenshot);
         
-        await page.goto(potsdamUrl);
-        await page.click('#action_officeselect_termnew_prefix1333626470');
-        await createAndStoreScreenshot('homepage', page);
         
-        await page.waitForSelector('h3.ekolSegmentBox1');
-
-        await page.close();
-        await browser.close();
-        
+        // await page.waitForSelector('h3.ekolSegmentBox1');
 
         // const result = await transporter.sendMail({
         //   from: email,
