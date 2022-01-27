@@ -25,6 +25,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "cdk": "cdk",
     "push": "git push --follow-tags origin main",
     "release": "standard-version",

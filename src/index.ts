@@ -14,11 +14,6 @@ export const lambdaHandler = async (event: any, context: Context) => {
     if (!email) throw new Error('Email address was not provided');
     if (!bucketName) throw new Error('Bucket name was not provided');
         
-    const config = [
-      'Beantragung eines Reisepasses',
-      'Beantragung eines Personalausweises',
-    ];
-    
     console.log('Start S3 Service...');    
     const s3 = new S3();
 
