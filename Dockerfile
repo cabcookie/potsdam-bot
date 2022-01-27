@@ -14,11 +14,11 @@ ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     AWS_REGION=$AWS_REGION
 
 COPY jest.config.js package*.json tsconfig.json ${LAMBDA_TASK_ROOT}/
-COPY src/*.ts ${LAMBDA_TASK_ROOT}/bin/
+COPY src/*.ts ${LAMBDA_TASK_ROOT}/src/
 COPY test/index.test.ts ${LAMBDA_TASK_ROOT}/test/
 
 RUN npm ci
 RUN npm run build
 RUN npm test
 
-CMD [ "bin/index.lambdaHandler" ]
+CMD [ "src/index.lambdaHandler" ]

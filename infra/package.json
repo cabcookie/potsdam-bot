@@ -5,7 +5,7 @@
   "author": "Carsten Koch",
   "license": "MIT",
   "bin": {
-    "tmp": "bin/index.js"
+    "tmp": "src/index.js"
   },
   "repository": {
     "type": "git",

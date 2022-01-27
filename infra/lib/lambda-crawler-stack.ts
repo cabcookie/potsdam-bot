@@ -40,26 +40,6 @@ export class LambdaCrawlerStack extends Stack {
       }),
     });
 
-    // const lambdaCrawler = new NodejsFunction(this, 'CrawlPotsdamPage', {
-    //   functionName: 'crawlPotsdamPage',
-    //   runtime: Runtime.NODEJS_14_X,
-    //   handler: 'handler',
-    //   timeout: Duration.minutes(5),
-    //   memorySize: 4096,
-    //   entry: './functions/crawl-page/index.ts',
-    //   bundling: {
-    //     externalModules: [
-    //       'aws-sdk',
-    //       'puppeteer',
-    //     ],
-    //   },
-    //   environment: {
-    //     REGION: this.region,
-    //     EMAIL: email.secretValueFromJson('email').toString(),
-    //     BUCKETNAME: screenshotsBucket.bucketName,
-    //   }
-    // });
-
     lambdaCrawler.addToRolePolicy(new PolicyStatement({
       effect: Effect.ALLOW,
       actions: [
