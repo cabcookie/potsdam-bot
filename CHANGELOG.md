@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.27](https://github.com/cabcookie/potsdam-bot/compare/v0.1.26...v0.1.27) (2022-01-27)
+
+
+### Features
+
+* now we get to the free slots stage ([748cefd](https://github.com/cabcookie/potsdam-bot/commit/748cefd28f7b4737628739e1611d70c0d9de8725))
+
 ### [0.1.26](https://github.com/cabcookie/potsdam-bot/compare/v0.1.25...v0.1.26) (2022-01-27)
 
 
