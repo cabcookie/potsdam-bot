@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.25](https://github.com/cabcookie/potsdam-bot/compare/v0.1.24...v0.1.25) (2022-01-27)
+
+
+### Features
+
+* **test:** added local testing before deployment ([fd755a3](https://github.com/cabcookie/potsdam-bot/commit/fd755a34fed3873ca23e7bc7311da8e462f0c55a))
+
 ### [0.1.24](https://github.com/cabcookie/potsdam-bot/compare/v0.1.23...v0.1.24) (2022-01-27)
 
 
