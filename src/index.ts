@@ -9,8 +9,6 @@ export const lambdaHandler = async (event: any, context: Context) => {
   const email = process.env.EMAIL;
   const bucketName = process.env.BUCKETNAME;
   
-  // let browser;
-  
   try {
     if (!region) throw new Error('Region was not provided');
     if (!email) throw new Error('Email address was not provided');
@@ -28,17 +26,18 @@ export const lambdaHandler = async (event: any, context: Context) => {
     //   SES: new SES(),
     // });
 
-    const createAndStoreScreenshot: CreateAndStoreScreenshotFn = async (filename: string, page: puppeteer.Page) => {
+    const createAndStoreScreenshot: CreateAndStoreScreenshotFn = async (filename: string, requestId: string, page: puppeteer.Page) => {
+      const fullFilename = `${requestId}/${filename}`;
       const screenshot = await page.screenshot({ fullPage: true }) as Buffer;
-      console.log('Screenshot created:', filename);
+      console.log('Screenshot created:', fullFilename);
       
       await s3.putObject({
         Bucket: bucketName,
-        Key: filename,
+        Key: fullFilename,
         Body: screenshot,
         ContentType: 'image/png'
       }).promise();
-      console.log(`Screenshot stored on S3: ${bucketName}/${filename}`);
+      console.log(`Screenshot stored on S3: ${bucketName}/${fullFilename}`);
     };
 
     let attempt = 0;
@@ -48,9 +47,6 @@ export const lambdaHandler = async (event: any, context: Context) => {
 
       try {
         await crawl(createAndStoreScreenshot);
-        
-        
-        // await page.waitForSelector('h3.ekolSegmentBox1');
 
         // const result = await transporter.sendMail({
         //   from: email,
