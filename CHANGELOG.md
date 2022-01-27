@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.28](https://github.com/cabcookie/potsdam-bot/compare/v0.1.27...v0.1.28) (2022-01-27)
+
+
+### Bug Fixes
+
+* moved crawl.ts to folder ./src ([459815c](https://github.com/cabcookie/potsdam-bot/commit/459815c879e4e3d8dcdf8b32ad277d807a653120))
+
 ### [0.1.27](https://github.com/cabcookie/potsdam-bot/compare/v0.1.26...v0.1.27) (2022-01-27)
 
 
