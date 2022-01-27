@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.23](https://github.com/cabcookie/potsdam-bot/compare/v0.1.22...v0.1.23) (2022-01-27)
+
+
+### Features
+
+* **unstable:** moving crawler to Lambda container ([0b9ada1](https://github.com/cabcookie/potsdam-bot/commit/0b9ada16bbf7e2ca7d206a01cde627bcfdbd6fc0))
+
 ### [0.1.22](https://github.com/cabcookie/potsdam-bot/compare/v0.1.21...v0.1.22) (2022-01-26)
 
 
