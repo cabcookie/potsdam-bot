@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.24](https://github.com/cabcookie/potsdam-bot/compare/v0.1.23...v0.1.24) (2022-01-27)
+
+
+### Bug Fixes
+
+* test failed because of the tsconfig setting ([e668b65](https://github.com/cabcookie/potsdam-bot/commit/e668b657f1fbd888ba0d21390546a13bfc016d00))
+
 ### [0.1.23](https://github.com/cabcookie/potsdam-bot/compare/v0.1.22...v0.1.23) (2022-01-27)
 
 
