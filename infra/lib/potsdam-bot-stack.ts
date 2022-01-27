@@ -1,7 +1,7 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
-import { githubRepo } from '../config';
+import { githubRepo } from '../../config';
 import { StageLambdaCrawler } from './stage-lambda-crawler';
 
 export class PotsdamBotStack extends Stack {
@@ -20,6 +20,6 @@ export class PotsdamBotStack extends Stack {
       }),
     });
 
-    const stageCrawler = pipeline.addStage(new StageLambdaCrawler(this, 'StageLambdaCrawler'));
+    pipeline.addStage(new StageLambdaCrawler(this, 'StageLambdaCrawler'));
   }
 }
