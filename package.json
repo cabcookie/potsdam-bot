@@ -1,6 +1,6 @@
 {
   "name": "potsdam-bot",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "description": "This bot exist to organize a meeting in the Bürgerbüro. It is hard to get a slot, so this bot should register one automatically if one is available. It will inform you via SMS if a slot it booked.",
   "bin": {
     "potsdam-bot": "infra/bin/potsdam-bot.js"

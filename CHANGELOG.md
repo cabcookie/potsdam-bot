@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.29](https://github.com/cabcookie/potsdam-bot/compare/v0.1.28...v0.1.29) (2022-01-27)
+
+
+### Bug Fixes
+
+* log retention creates problems in the pipe ([4ed48a5](https://github.com/cabcookie/potsdam-bot/commit/4ed48a5defed00d9ebd256a6ef598efef2c16b75))
+
 ### [0.1.28](https://github.com/cabcookie/potsdam-bot/compare/v0.1.27...v0.1.28) (2022-01-27)
 
 
