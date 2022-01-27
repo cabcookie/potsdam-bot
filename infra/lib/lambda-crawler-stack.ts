@@ -24,7 +24,7 @@ export class LambdaCrawlerStack extends Stack {
       description: 'Lambda crawling the web page of the Potsdam Bürgerservice',
       memorySize: 1536,
       timeout: Duration.minutes(1),
-      logRetention: RetentionDays.FIVE_DAYS,
+      // logRetention: RetentionDays.FIVE_DAYS,
       environment: {
         REGION: this.region,
         BUCKET: screenshotsBucket.bucketName,
