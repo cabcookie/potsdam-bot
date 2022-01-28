@@ -1,3 +1,4 @@
+import { writeFileSync } from "fs";
 import { config } from "process";
 import * as puppeteer from "puppeteer";
 
@@ -96,6 +97,23 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
 
   await page.click(flowItems.buttonConfirmCommentsRead);
   await page.waitForSelector(flowItems._nextPageLoaded);
+
+  // const html = await page.$eval('*', (element) => element.outerHTML);
+  // await writeFileSync('temp/html.html', html);
+  // console.log('HTML', html);
+  
+  // await page.click('table.ekolCalendarMonthTable tbody td.eKOLCalendarCellInRange button')
+  // await page.waitForSelector('h3.ekolSegmentBox1');
+  // await createScreenshot(page, 'tag-gewaehlt');
+
+  // const currentPageHtml = await page.evaluate(() => document.querySelector('*').outerHTML);
+  // console.log(currentPageHtml);
+
+  // if (!currentPageHtml.search('0 freie Termine')) {
+  //   console.log('Send an SMS as there seems to be slots available');
+  // } else {
+  //   console.log('There is no slot available');
+  // }
 
   await createAndStoreScreenshot(makeFilename('homepage'), requestId, page);
 
