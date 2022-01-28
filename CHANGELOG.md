@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.32](https://github.com/cabcookie/potsdam-bot/compare/v0.1.31...v0.1.32) (2022-01-28)
+
+
+### Bug Fixes
+
+* remove stage ([41a34bb](https://github.com/cabcookie/potsdam-bot/commit/41a34bb8d03c99c5dfab9c3d68789d7acacd939d))
+
 ### [0.1.31](https://github.com/cabcookie/potsdam-bot/compare/v0.1.30...v0.1.31) (2022-01-28)
 
 
