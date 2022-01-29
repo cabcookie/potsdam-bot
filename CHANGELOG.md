@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.33](https://github.com/cabcookie/potsdam-bot/compare/v0.1.32...v0.1.33) (2022-01-29)
+
+
+### Features
+
+* booking a meeting should work now ([736739d](https://github.com/cabcookie/potsdam-bot/commit/736739dd2e20620f45109d2cca2f87016cd2488b))
+
 ### [0.1.32](https://github.com/cabcookie/potsdam-bot/compare/v0.1.31...v0.1.32) (2022-01-28)
 
 
