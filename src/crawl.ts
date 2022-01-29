@@ -1,24 +1,26 @@
-import { writeFileSync } from "fs";
-import { config } from "process";
 import * as puppeteer from "puppeteer";
+import { findFreeSlotAndBookIt } from "./find-a-free-slot-and-book-it";
 
-const flowItems = {
+export interface IFlowItems {
+  [key: string]: string;
+};
+
+export const flowItems: IFlowItems = {
   buttonTerminVereinbaren: '#action_officeselect_termnew_prefix1333626470',
   servicesSelection: '#id_abstractcontexttnv_mdg-input-anliegen-ohne-dauer .blockcontentdatagrid .ui-field-contain',
   buttonConfirmSelectedServices: '#action_concernselect_next',
   buttonConfirmCommentsRead: '#action_concerncomments_next',
+  findFreeDates: '.ekolCalendarMonthTable tbody td.eKOLCalendarCellInRange button.eKOLCalendarButtonDayFreeX,button.eKOLCalendarButtonDayTimeUsed',
+  findFreeTimes: '#ekolcalendartimeselectbox',
+  findFreeTimesOptions: '#ekolcalendartimeselectbox option',
+  confirmTimeSelection: '#ekolcalendarpopupdayauswahlbuttoncontainer',
+  closePopUpWindow: '.ekolstaticpopup .messagebox_buttonclosecontainer button',
+  inputLastName: 'input[name=NACHNAME]',
+  confirmRegistrationName: '#action_userdata_next',
+  bookMeetingSlot: '#action_confirm_next',
+  messageMeetingSlotBookedAlready: '.uiMessageAdvancedInfo ul#infomsglist li',
 
   _nextPageLoaded: 'h3.ekolSegmentBox1',
-};
-
-const requestId = new Date().toISOString().substring(0,19).replace(/-/g, "").replace(/:/g, "");
-let picNumber = 0;
-console.log('Request ID:', requestId);
-
-const makeFilename = (filename: string) => {
-  picNumber++;
-  const nulls = new Array(5 - `${picNumber}`.length).join('0');
-  return `${nulls}-${filename}.png`;
 };
 
 const getIdFromSelectElement = async (element: puppeteer.ElementHandle) => {
@@ -44,19 +46,11 @@ const mapServices: MapServicesFn = async (element) => {
   return { service, id };
 };
 
-export type CreateAndStoreScreenshotFn = (filename: string, requestId: string, page: puppeteer.Page) => void
+export type CreateAndStoreScreenshotFn = (filename: string, requestId: string, page: puppeteer.Page) => void | Promise<Buffer> | Promise<void>;
+export type SendEmailFn = (subject: string, text: string, attachments: Buffer[]) => void;
 
-export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn) => {
-  const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
-  console.log(`URL: ${potsdamUrl}`);
-
-  const config = [{
-    service: 'Beantragung eines Reisepasses',
-    items: 1,
-  },{
-    service: 'Beantragung eines Personalausweises',
-    items: 1,
-  }];
+export const callUrl = async (url: string) => {
+  console.log(`URL: ${url}`);
 
   console.log('Launch browser...');
   const browser = await puppeteer.launch({
@@ -74,7 +68,27 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   page.setDefaultNavigationTimeout(60000);
   await page.setViewport({ width: 1920, height: 1080 });
   
-  await page.goto(potsdamUrl);
+  await page.goto(url);
+
+  return { browser, page };
+}
+
+
+export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, emailer: SendEmailFn) => {
+  const requestId = new Date().toISOString().substring(0,19).replace(/-/g, "").replace(/:/g, "");
+  console.log('Request ID:', requestId);
+
+  const config = [{
+    service: 'Beantragung eines Reisepasses',
+    items: 1,
+  },{
+    service: 'Beantragung eines Personalausweises',
+    items: 1,
+  }];
+  
+  const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
+  const { page, browser } = await callUrl(potsdamUrl);
+
   await page.click(flowItems.buttonTerminVereinbaren);
   await page.waitForSelector(flowItems._nextPageLoaded);
 
@@ -93,30 +107,25 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   await page.click(flowItems.buttonConfirmSelectedServices);
   await page.waitForSelector(flowItems._nextPageLoaded);
 
-  // TODO: Collect the links with information about preparing the meeting
-
   await page.click(flowItems.buttonConfirmCommentsRead);
   await page.waitForSelector(flowItems._nextPageLoaded);
 
-  // const html = await page.$eval('*', (element) => element.outerHTML);
-  // await writeFileSync('temp/html.html', html);
-  // console.log('HTML', html);
+  await createAndStoreScreenshot('calendar', requestId, page);
   
-  // await page.click('table.ekolCalendarMonthTable tbody td.eKOLCalendarCellInRange button')
-  // await page.waitForSelector('h3.ekolSegmentBox1');
-  // await createScreenshot(page, 'tag-gewaehlt');
+  // TODO: Collect the links with information about preparing the meeting
+  
+  try {
+    const result = await findFreeSlotAndBookIt(createAndStoreScreenshot, page, requestId);
+    if (result) {
+      const screenshot = await createAndStoreScreenshot('confirmation', requestId, page);
+      emailer('Bürgerservice Potsdam - Termin gebucht', 'Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst.', [screenshot as Buffer]);
+    }
+  } catch (error) {
+    console.log('ERROR:', error);
 
-  // const currentPageHtml = await page.evaluate(() => document.querySelector('*').outerHTML);
-  // console.log(currentPageHtml);
+  }
 
-  // if (!currentPageHtml.search('0 freie Termine')) {
-  //   console.log('Send an SMS as there seems to be slots available');
-  // } else {
-  //   console.log('There is no slot available');
-  // }
-
-  await createAndStoreScreenshot(makeFilename('homepage'), requestId, page);
-
+  await createAndStoreScreenshot('final-page', requestId, page);
   await page.close();
   await browser.close();
 };

@@ -64,7 +64,11 @@ export class LambdaCrawlerStack extends Stack {
     screenshotsBucket.grantWrite(lambdaCrawler);
 
     const cronJob = new Rule(this, 'CronJobToRunCrawler', {
-      schedule: Schedule.rate(Duration.minutes(60)),
+      schedule: Schedule.cron({
+        minute: '*/5',
+        hour: '7-16',
+        weekDay: '1,2,3,4,5,6',
+      }),
     });
 
     cronJob.addTarget(new LambdaFunction(lambdaCrawler));
