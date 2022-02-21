@@ -67,7 +67,9 @@ export class LambdaCrawlerStack extends Stack {
       schedule: Schedule.cron({
         minute: '*/5',
         hour: '7-16',
-        weekDay: '1,2,3,4,5,6',
+        weekDay: 'MON-SAT',
+        month: '*',
+        year: '*',
       }),
     });
 

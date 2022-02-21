@@ -47,7 +47,7 @@ const mapServices: MapServicesFn = async (element) => {
 };
 
 export type CreateAndStoreScreenshotFn = (filename: string, requestId: string, page: puppeteer.Page) => void | Promise<Buffer> | Promise<void>;
-export type SendEmailFn = (subject: string, text: string, attachments: Buffer[]) => void;
+export type SendEmailFn = (subject: string, text: string) => void;
 
 export const callUrl = async (url: string) => {
   console.log(`URL: ${url}`);
@@ -112,13 +112,11 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
 
   await createAndStoreScreenshot('calendar', requestId, page);
   
-  // TODO: Collect the links with information about preparing the meeting
-  
   try {
     const result = await findFreeSlotAndBookIt(createAndStoreScreenshot, page, requestId);
     if (result) {
       const screenshot = await createAndStoreScreenshot('confirmation', requestId, page);
-      emailer('Bürgerservice Potsdam - Termin gebucht', 'Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst.', [screenshot as Buffer]);
+      emailer('Bürgerservice Potsdam - Termin gebucht', 'Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst. Ein Screenshot von der Anmeldebestätigung mit dem Namen "confirmation" wurde in S3 gespeichert.');
     }
   } catch (error) {
     console.log('ERROR:', error);

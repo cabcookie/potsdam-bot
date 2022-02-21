@@ -4,19 +4,35 @@ import { S3, SES } from "aws-sdk";
 import * as puppeteer from 'puppeteer';
 import { crawl, CreateAndStoreScreenshotFn, SendEmailFn } from './crawl';
 
-const sendEmail: SendEmailFn = (email: string, region: string) => async (subject: string, text: string, screenshots: Buffer[]) => {
-  const transporter = createTransport({
-    SES: new SES({ region }),
-    to: email,
-    from: email,
-    subject,
-    text,
-    attachments: screenshots.map((attachment, index) => ({
-      filename: `screenshot-${index}.png`,
-      raw: attachment,
-    })),
-  });
-  await transporter.sendMail({});
+const CHARSET = 'UTF-8';
+
+const sendEmail = (email: string, region: string): SendEmailFn => async (subject: string, text: string) => {
+  console.log('Prepare Email:', { subject, text, email, region });
+
+  const ses = new SES({ region });
+  const params = {
+    Destination: {
+      ToAddresses: [email],
+    },
+    Message: {
+      Body: {
+        Text: {
+          Data: text,
+          Charset: CHARSET,
+        },
+      },
+      Subject: {
+        Data: subject,
+        Charset: CHARSET,
+      },
+    },
+    Source: email,
+  };
+
+  console.log('Send email.');
+    
+  const result = await ses.sendEmail(params).promise();
+  console.log('Email Result', result);
 };
 
 export const lambdaHandler = async (event: any, context: Context) => {
