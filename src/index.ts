@@ -1,5 +1,4 @@
 import { Context } from 'aws-lambda';
-import { createTransport } from 'nodemailer';
 import { S3, SES } from "aws-sdk";
 import * as puppeteer from 'puppeteer';
 import { crawl, CreateAndStoreScreenshotFn, SendEmailFn } from './crawl';
