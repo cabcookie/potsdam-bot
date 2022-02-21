@@ -1,4 +1,5 @@
 import * as puppeteer from "puppeteer";
+import { IServicesToBook } from ".";
 import { findFreeSlotAndBookIt } from "./find-a-free-slot-and-book-it";
 
 export interface IFlowItems {
@@ -73,18 +74,9 @@ export const callUrl = async (url: string) => {
   return { browser, page };
 }
 
-
-export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, emailer: SendEmailFn) => {
+export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, registrantLastName:string, servicesToBook: IServicesToBook[], emailer: SendEmailFn) => {
   const requestId = new Date().toISOString().substring(0,19).replace(/-/g, "").replace(/:/g, "");
   console.log('Request ID:', requestId);
-
-  const config = [{
-    service: 'Beantragung eines Reisepasses',
-    items: 1,
-  },{
-    service: 'Beantragung eines Personalausweises',
-    items: 1,
-  }];
   
   const potsdamUrl = 'https://egov.potsdam.de/tnv/?START_OFFICE=buergerservice';
   const { page, browser } = await callUrl(potsdamUrl);
@@ -98,7 +90,7 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
     const service = services[i];
     const mappedService = await mapServices(service);
     
-    const configItem = config.filter((config) => config.service == mappedService.service);
+    const configItem = servicesToBook.filter((serviceToBook) => serviceToBook.service == mappedService.service);
     if (configItem.length > 0) {
       await page.select(`#id_${mappedService.id}`, `${configItem[0].items}`);
     }
@@ -113,7 +105,7 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   await createAndStoreScreenshot('calendar', requestId, page);
   
   try {
-    const result = await findFreeSlotAndBookIt(createAndStoreScreenshot, page, requestId);
+    const result = await findFreeSlotAndBookIt(createAndStoreScreenshot, registrantLastName, page, requestId);
     if (result) {
       const screenshot = await createAndStoreScreenshot('confirmation', requestId, page);
       emailer('Bürgerservice Potsdam - Termin gebucht', 'Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst. Ein Screenshot von der Anmeldebestätigung mit dem Namen "confirmation" wurde in S3 gespeichert.');

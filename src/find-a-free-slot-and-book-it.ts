@@ -1,7 +1,7 @@
 import * as puppeteer from "puppeteer";
 import { CreateAndStoreScreenshotFn, flowItems } from "./crawl";
 
-const getFreeTimes = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, page: puppeteer.Page, requestId: string) => {
+const getFreeTimes = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, registrantLastName: string, page: puppeteer.Page, requestId: string) => {
   let freeTimesLength = -1;
   let freeTimeIndex = 0;
   
@@ -39,7 +39,7 @@ const getFreeTimes = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
 
     await createAndStoreScreenshot('confirm-date-time-selection', requestId, page);
 
-    await page.type(flowItems.inputLastName, 'Koch', { delay: 20 });
+    await page.type(flowItems.inputLastName, registrantLastName, { delay: 20 });
     await page.click(flowItems.confirmRegistrationName);
     await page.waitForNavigation();
 
@@ -53,7 +53,7 @@ const getFreeTimes = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   return false;
 };
 
-export const findFreeSlotAndBookIt = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, page: puppeteer.Page, requestId: string) => {
+export const findFreeSlotAndBookIt = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, registrantLastName: string, page: puppeteer.Page, requestId: string) => {
   let freeSlotsLength = -1;
   let dateSlot = -1;
 
@@ -69,7 +69,7 @@ export const findFreeSlotAndBookIt = async (createAndStoreScreenshot: CreateAndS
     await createAndStoreScreenshot('free-slots', requestId, page);
 
     try {
-      const dateTimeFound = await getFreeTimes(createAndStoreScreenshot, page, requestId);
+      const dateTimeFound = await getFreeTimes(createAndStoreScreenshot, registrantLastName, page, requestId);
       if (dateTimeFound) return true;
 
     } catch (error) {

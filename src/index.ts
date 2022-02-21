@@ -5,6 +5,11 @@ import { crawl, CreateAndStoreScreenshotFn, SendEmailFn } from './crawl';
 
 const CHARSET = 'UTF-8';
 
+export interface IServicesToBook {
+  service: string;
+  items: number;
+}
+
 const sendEmail = (email: string, region: string): SendEmailFn => async (subject: string, text: string) => {
   console.log('Prepare Email:', { subject, text, email, region });
 
@@ -35,6 +40,17 @@ const sendEmail = (email: string, region: string): SendEmailFn => async (subject
 };
 
 export const lambdaHandler = async (event: any, context: Context) => {
+  /**
+   * For the moment, we store the basic information about who wants to book
+   * and what this person wants to book here in the code. Our aim is to
+   * have defined by a user on a landing page and be stored in a DynamoDB.
+   */
+  const registrantLastName = 'Lange';
+  const servicesToBook = [{
+    service: 'Beantragung eines Personalausweises',
+    items: 1,
+  }] as IServicesToBook[];
+
   const region = process.env.REGION;
   const email = process.env.EMAIL;
   const bucketName = process.env.BUCKET;
@@ -51,11 +67,11 @@ export const lambdaHandler = async (event: any, context: Context) => {
     const createAndStoreScreenshot: CreateAndStoreScreenshotFn = async (filename: string, requestId: string, page: puppeteer.Page) => {
       const makeFilename = (filename: string) => {
         picNumber++;
-        const nulls = new Array(5 - `${picNumber}`.length).join('0');
-        return `${nulls}-${filename}.png`;
+        const nulls = new Array(4 - `${picNumber}`.length).join('0');
+        return `${nulls}${picNumber}-${filename}.png`;
       };
           
-      const fullFilename = `${requestId}/${makeFilename(filename)}`;
+      const fullFilename = `pictures/${requestId}-${makeFilename(filename)}`;
       const screenshot = await page.screenshot({ fullPage: true }) as Buffer;
       console.log('Screenshot created:', fullFilename);
       
@@ -76,7 +92,7 @@ export const lambdaHandler = async (event: any, context: Context) => {
       console.log(`${attempt}${attempt == 1 ? 'st' : attempt == 2 ? 'nd' : attempt == 3 ? 'rd' : 'th'} attempt...`);
 
       try {
-        await crawl(createAndStoreScreenshot, sendEmail);
+        await crawl(createAndStoreScreenshot, registrantLastName, servicesToBook, sendEmail);
 
         return {
           statusCode: 200,
