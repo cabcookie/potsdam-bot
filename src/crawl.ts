@@ -123,16 +123,16 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
 
   console.log('Page and browser closed.');
   
-  try {
-    const dir = '/tmp';
-    const filesInTmp = readdirSync(`${dir}`);
-    for (const file of filesInTmp) {
-      console.log(`Delete file '${file}'...`);
+  const dir = '/tmp';
+  const filesInTmp = readdirSync(`${dir}`);
+  for (const file of filesInTmp) {
+    console.log(`Delete file '${file}'...`);
+    try {
       unlinkSync(join(dir, file));
+    } catch (error) {
+      console.log(error);
     }      
-  } catch (error) {
-    console.log('Error deleting file:', error);
-    
   }
+    
   
 };
