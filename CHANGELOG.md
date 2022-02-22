@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.45](https://github.com/cabcookie/potsdam-bot/compare/v0.1.44...v0.1.45) (2022-02-22)
+
+
+### Features
+
+* **stable:** pipeline is working now ([cfaa315](https://github.com/cabcookie/potsdam-bot/commit/cfaa31567d6b0d3c6432709a0d79ddd03304b871))
+
+
+### Bug Fixes
+
+* **unstable:** adding aws-lambda types ([c4db60a](https://github.com/cabcookie/potsdam-bot/commit/c4db60aee533fe788e53b605cde329247ebf2c22))
+* **unstable:** empty pipe ([e9feb10](https://github.com/cabcookie/potsdam-bot/commit/e9feb107c3c6a0774c5f659a7c6cddf2cad36ad0))
+* **unstable:** pipeline creates Lambda ([9077f9b](https://github.com/cabcookie/potsdam-bot/commit/9077f9b7d15aac833690f05390eadebd83f85bf3))
+
 ### [0.1.44](https://github.com/cabcookie/potsdam-bot/compare/v0.1.43...v0.1.44) (2022-02-22)
 
 
