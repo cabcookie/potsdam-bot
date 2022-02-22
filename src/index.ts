@@ -50,6 +50,9 @@ export const lambdaHandler = async (event: any, context: Context) => {
   const servicesToBook = [{
     service: 'Beantragung eines Personalausweises',
     items: 1,
+  }, {
+    service: 'Beantragung eines Reisepasses',
+    items: 1,
   }] as IServicesToBook[];
 
   // Get the current AWS Region, the sender Email address and the S3 bucket for the screenshots from the Lambda's environment variable
