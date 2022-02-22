@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.37](https://github.com/cabcookie/potsdam-bot/compare/v0.1.36...v0.1.37) (2022-02-22)
+
+
+### Features
+
+* **single-request:** add Reisepass to request ([4dc6859](https://github.com/cabcookie/potsdam-bot/commit/4dc68590c26d468d0c9d8b2a35f15f3ffe9d8940))
+
 ### [0.1.36](https://github.com/cabcookie/potsdam-bot/compare/v0.1.35...v0.1.36) (2022-02-22)
 
 
