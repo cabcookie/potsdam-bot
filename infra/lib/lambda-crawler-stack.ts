@@ -64,6 +64,8 @@ export class LambdaCrawlerStack extends Stack {
     screenshotsBucket.grantWrite(lambdaCrawler);
 
     const cronJob = new Rule(this, 'CronJobToRunCrawler', {
+      ruleName: 'PotsdamBotCronJob',
+      description: 'This will start the Lambda crawler per defined scheduling',
       schedule: Schedule.cron({
         minute: '*/5',
         hour: '7-16',
