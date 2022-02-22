@@ -84,7 +84,10 @@ export const lambdaHandler = async (event: any, context: Context) => {
       }).promise();
       console.log(`Screenshot stored: ${bucketName}/${fullFilename}`);
 
-      return screenshot;
+      return {
+        screenshot,
+        fileName: fullFilename,
+      };
     };
 
     let attempt = 0;

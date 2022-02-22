@@ -49,7 +49,11 @@ const mapServices: MapServicesFn = async (element) => {
   return { service, id };
 };
 
-export type CreateAndStoreScreenshotFn = (filename: string, requestId: string, page: puppeteer.Page) => void | Promise<Buffer> | Promise<void>;
+export interface IScreenshotWithMetadata {
+  screenshot: Buffer;
+  fileName: string;
+}
+export type CreateAndStoreScreenshotFn = (filename: string, requestId: string, page: puppeteer.Page) => void | Promise<IScreenshotWithMetadata> | Promise<void>;
 export type SendEmailFn = (subject: string, text: string) => void;
 
 export const callUrl = async (url: string) => {
@@ -77,6 +81,9 @@ export const callUrl = async (url: string) => {
 }
 
 export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn, registrantLastName:string, servicesToBook: IServicesToBook[], emailer: SendEmailFn) => {
+  const bucketName = process.env.BUCKET;
+  const region = process.env.REGION;
+
   const requestId = new Date().toISOString().substring(0,19).replace(/-/g, "").replace(/:/g, "");
   console.log('Request ID:', requestId);
   
@@ -109,8 +116,11 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   try {
     const result = await findFreeSlotAndBookIt(createAndStoreScreenshot, registrantLastName, page, requestId);
     if (result) {
-      const screenshot = await createAndStoreScreenshot('confirmation', requestId, page);
-      emailer('Bürgerservice Potsdam - Termin gebucht', 'Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst. Ein Screenshot von der Anmeldebestätigung mit dem Namen "confirmation" wurde in S3 gespeichert.');
+      const { fileName } = await createAndStoreScreenshot('confirmation', requestId, page) as IScreenshotWithMetadata;
+      await emailer(
+        'Bürgerservice Potsdam - Termin gebucht',
+        `Es konnte erfolgreich ein Termin gebucht werden. Bitte informiere Dich über die Potsdam-Homepage, wie du den Termin optimal vorbereiten kannst. Ein Screenshot von der Anmeldebestätigung wurde in S3 gespeichert: https://s3.console.aws.amazon.com/s3/object/${bucketName}?region=${region}&prefix=${fileName}`
+      );
     }
   } catch (error) {
     console.log('ERROR:', error);
