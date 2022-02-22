@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.43](https://github.com/cabcookie/potsdam-bot/compare/v0.1.42...v0.1.43) (2022-02-22)
+
+
+### Features
+
+* **foundation:** Install newest version of CDK [#1](https://github.com/cabcookie/potsdam-bot/issues/1) ([f3eeb41](https://github.com/cabcookie/potsdam-bot/commit/f3eeb41ada7f43fb2e2a81494d38ea16adb1b984))
+
+
+### Bug Fixes
+
+* **unstable:** empty pipeline ([ad50420](https://github.com/cabcookie/potsdam-bot/commit/ad50420f886eadb9aa9eaa29e6452c248766fbb3))
+
 ### [0.1.42](https://github.com/cabcookie/potsdam-bot/compare/v0.1.41...v0.1.42) (2022-02-22)
 
 
