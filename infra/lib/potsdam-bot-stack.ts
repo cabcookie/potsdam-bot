@@ -23,17 +23,17 @@ export class PotsdamBotStack extends Stack {
     console.log('Github repo string:', getRepositoryString(props.github));
     
     
-    // const pipeline = new CodePipeline(this, 'PBotPipeline', {
-    //   pipelineName: 'PotsdamBot',
-    //   synth: new ShellStep('SynthStep', {
-    //     input: CodePipelineSource.gitHub(getRepositoryString(props.github), 'main'),
-    //     commands: [
-    //       'npm ci',
-    //       'npm run build',
-    //       'npx cdk synth',
-    //     ],
-    //   }),
-    // });
+    const pipeline = new CodePipeline(this, 'PBotPipeline', {
+      pipelineName: 'PotsdamBot',
+      synth: new ShellStep('SynthStep', {
+        input: CodePipelineSource.gitHub(getRepositoryString(props.github), 'main'),
+        commands: [
+          'npm ci',
+          'npm run build',
+          'npx cdk synth',
+        ],
+      }),
+    });
 
     // pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage'));
   }
