@@ -30,9 +30,6 @@ export class PotsdamBotStack extends Stack {
       }),
     });
 
-    pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage', {
-      stackName: 'PBotCrawlerStage',
-      description: 'Creating the Lambda function which crawls the desired URL.',
-    }));
+    pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage'));
   }
 }
