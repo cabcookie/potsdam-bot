@@ -2,6 +2,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
 import { githubRepo } from '../../config';
+// import { LambdaCrawlerStack } from './lambda-crawler-stack';
 // import { PBotCrawlerStage } from './pbot-crawler-stage';
 
 export class PotsdamBotStack extends Stack {
@@ -19,6 +20,15 @@ export class PotsdamBotStack extends Stack {
         ],
       }),
     });
+
+    // const anotherStack = new LambdaCrawlerStack(this, 'PBotCrawlerStack', {
+    //   // stackName: 'potsdam-bot-crawler',
+    //   // description: 'This creates a bot which crawls for available slots at the Potsdam Bürgerservice, books one according to the preference of the citizen and informs the person about the success.',
+    //   env: {
+    //     account: props?.env?.account,
+    //     region: props?.env?.region,
+    //   },
+    // });
 
     // pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage', {
     //   stackName: 'PBotCrawlerStage',
