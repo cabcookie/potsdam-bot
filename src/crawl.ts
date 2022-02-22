@@ -1,5 +1,3 @@
-import { readdirSync, statSync, unlinkSync } from "fs";
-import { join } from "path";
 import * as puppeteer from "puppeteer";
 import { IServicesToBook } from ".";
 import { findFreeSlotAndBookIt } from "./find-a-free-slot-and-book-it";
@@ -130,28 +128,5 @@ export const crawl = async (createAndStoreScreenshot: CreateAndStoreScreenshotFn
   await createAndStoreScreenshot('final-page', requestId, page);
   await page.close();
   await browser.close();
-
   console.log('Page and browser closed.');
-  
-  const dir = '/tmp';
-  const filesInTmp = readdirSync(`${dir}`);
-
-  console.log('Files to be deleted:', filesInTmp);
-  
-  for (const file of filesInTmp) {
-    console.log(`Delete file '${file}'...`);
-    try {
-      const fileDir = join(dir, file);
-      const fileSizeMByte = (Math.round(statSync(fileDir).size / 1024 / 1024 *1000) / 1000).toFixed(3);
-      console.log(`Filesize: ${fileSizeMByte}`);
-      
-      unlinkSync(fileDir);
-      console.log(`Successfully deleted ${file}.`);
-      
-    } catch (error) {
-      console.log(error);
-    }      
-  }
-    
-  
 };
