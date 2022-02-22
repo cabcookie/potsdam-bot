@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.42](https://github.com/cabcookie/potsdam-bot/compare/v0.1.41...v0.1.42) (2022-02-22)
+
+
+### Bug Fixes
+
+* **unstable:** circular dependencies ([71072c3](https://github.com/cabcookie/potsdam-bot/commit/71072c3a102a1cea582c74b8674121072de186d0))
+
 ### [0.1.41](https://github.com/cabcookie/potsdam-bot/compare/v0.1.40...v0.1.41) (2022-02-22)
 
 
