@@ -2,6 +2,7 @@ import { Context } from 'aws-lambda';
 import { S3, SES } from "aws-sdk";
 import * as puppeteer from 'puppeteer';
 import { crawl, CreateAndStoreScreenshotFn, SendEmailFn } from './crawl';
+import { emptyFolder } from './empty-folder';
 
 const CHARSET = 'UTF-8';
 
@@ -93,6 +94,7 @@ export const lambdaHandler = async (event: any, context: Context) => {
 
       try {
         await crawl(createAndStoreScreenshot, registrantLastName, servicesToBook, sendEmail);
+        emptyFolder('/tmp');
 
         return {
           statusCode: 200,
@@ -107,6 +109,8 @@ export const lambdaHandler = async (event: any, context: Context) => {
     
   } catch (error) {
     console.log('ERROR:', error);
+    emptyFolder('/tmp');
+
     if (error instanceof Error) {
       return JSON.stringify({
         body: { error: error.message },
