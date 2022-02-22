@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.34](https://github.com/cabcookie/potsdam-bot/compare/v0.1.33...v0.1.34) (2022-02-22)
+
+
+### Features
+
+* **config:** centralized settings ([acf8924](https://github.com/cabcookie/potsdam-bot/commit/acf892474e66e69d081b5c1ec98af1069ecb0bba))
+* **response:** email includes file name, fixes [#4](https://github.com/cabcookie/potsdam-bot/issues/4) ([7e00b28](https://github.com/cabcookie/potsdam-bot/commit/7e00b28a584c2ad814839158cb884af169ccd073))
+
+
+### Bug Fixes
+
+* **bug:** catching error per file deletion ([52f3d11](https://github.com/cabcookie/potsdam-bot/commit/52f3d113578186147b482becbd45a077b0a1dbc7))
+* **bug:** delete `/tmp` folder ([d529c43](https://github.com/cabcookie/potsdam-bot/commit/d529c43d32c4639a72076e122512785ba68ae39e))
+* **cleanup:** clean up ([f10b94b](https://github.com/cabcookie/potsdam-bot/commit/f10b94b497f35e08f050ad0c91950d6dfc4b77cc))
+* **cleanup:** delete packages and imports ([401e5fe](https://github.com/cabcookie/potsdam-bot/commit/401e5feb0248bb5c43e00e6a92fe6029788223a8))
+* **email:** sending the confirmation Email ([d49160d](https://github.com/cabcookie/potsdam-bot/commit/d49160dd5328a3eaacbbdc3f0956520fffc97980))
+* **maintain:** empty cache folder, fixes [#5](https://github.com/cabcookie/potsdam-bot/issues/5) ([8e16b1e](https://github.com/cabcookie/potsdam-bot/commit/8e16b1e292b17a524755f0c582731c975678da9d))
+* **maintain:** naming of screenshots in log files ([d286970](https://github.com/cabcookie/potsdam-bot/commit/d286970392a20ada02413578e5723a985b0858dc))
+* **maintain:** removed empty folder from crawl.ts ([69d9fa0](https://github.com/cabcookie/potsdam-bot/commit/69d9fa07c655b65c6e5c87c8c1a17313d9caa443))
+
 ### [0.1.33](https://github.com/cabcookie/potsdam-bot/compare/v0.1.32...v0.1.33) (2022-01-29)
 
 
