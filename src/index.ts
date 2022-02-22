@@ -52,16 +52,18 @@ export const lambdaHandler = async (event: any, context: Context) => {
     items: 1,
   }] as IServicesToBook[];
 
+  // Get the current AWS Region, the sender Email address and the S3 bucket for the screenshots from the Lambda's environment variable
   const region = process.env.REGION;
   const email = process.env.EMAIL;
   const bucketName = process.env.BUCKET;
   let picNumber = 0;
   
   try {
+    // If the environment variables are not provided the crawler can not succeed!
     if (!region) throw new Error('Region was not provided');
     if (!email) throw new Error('Email address was not provided');
     if (!bucketName) throw new Error('Bucket name was not provided');
-        
+
     console.log('Start S3 Service...');    
     const s3 = new S3();
 
@@ -90,13 +92,17 @@ export const lambdaHandler = async (event: any, context: Context) => {
       };
     };
 
+    // Try up to three times to crawl the page
     let attempt = 0;
     do {
       attempt++;
       console.log(`${attempt}${attempt == 1 ? 'st' : attempt == 2 ? 'nd' : attempt == 3 ? 'rd' : 'th'} attempt...`);
 
       try {
+        // Crawl the web page and try to book and appointment
         await crawl(createAndStoreScreenshot, registrantLastName, servicesToBook, sendEmail);
+
+        // Delete the chromium and puppeteer temp files
         emptyFolder('/tmp');
 
         return {
