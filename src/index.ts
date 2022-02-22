@@ -74,7 +74,7 @@ export const lambdaHandler = async (event: any, context: Context) => {
           
       const fullFilename = `pictures/${requestId}-${makeFilename(filename)}`;
       const screenshot = await page.screenshot({ fullPage: true }) as Buffer;
-      console.log('Screenshot created:', fullFilename);
+      console.log('Screenshot created:', filename);
       
       await s3.putObject({
         Bucket: bucketName,
@@ -82,7 +82,7 @@ export const lambdaHandler = async (event: any, context: Context) => {
         Body: screenshot,
         ContentType: 'image/png'
       }).promise();
-      console.log(`Screenshot stored on S3: ${bucketName}/${fullFilename}`);
+      console.log(`Screenshot stored: ${bucketName}/${fullFilename}`);
 
       return screenshot;
     };
