@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.36](https://github.com/cabcookie/potsdam-bot/compare/v0.1.35...v0.1.36) (2022-02-22)
+
+
+### Features
+
+* **deploy:** Re-active the CI/CD pipeline again ([239bbf7](https://github.com/cabcookie/potsdam-bot/commit/239bbf7f8350f0d96dba0ee56c75d0c4528d7ff8)), closes [#6](https://github.com/cabcookie/potsdam-bot/issues/6)
+
 ### [0.1.35](https://github.com/cabcookie/potsdam-bot/compare/v0.1.34...v0.1.35) (2022-02-22)
 
 
