@@ -7,8 +7,6 @@ import { config } from "../../config";
 
 const app = new cdk.App();
 const stack = new PotsdamBotStack(app, 'PotsdamBotStack', {
-  // stackName: 'potsdam-bot',
-  // description: 'This creates a bot which crawls for available slots at the Potsdam Bürgerservice, books one according to the preference of the citizen and informs the person about the success.',
   githubRepositoryOwner: config.github.owner,
   githubRepositoryName: config.github.repository,
 
