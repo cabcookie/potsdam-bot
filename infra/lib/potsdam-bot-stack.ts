@@ -19,19 +19,21 @@ export class PotsdamBotStack extends Stack {
   constructor(scope: Construct, id: string, props: PotsdamBotStackProps) {
     super(scope, id, props);
 
-    new Bucket(this, 'test-bucket');
-
-    const pipeline = new CodePipeline(this, 'PBotPipeline', {
-      pipelineName: 'PotsdamBot',
-      synth: new ShellStep('SynthStep', {
-        input: CodePipelineSource.gitHub(getRepositoryString(props.github), 'main'),
-        commands: [
-          'npm ci',
-          'npm run build',
-          'npx cdk synth',
-        ],
-      }),
-    });
+    console.log('Github:', props.github);
+    console.log('Github repo string:', getRepositoryString(props.github));
+    
+    
+    // const pipeline = new CodePipeline(this, 'PBotPipeline', {
+    //   pipelineName: 'PotsdamBot',
+    //   synth: new ShellStep('SynthStep', {
+    //     input: CodePipelineSource.gitHub(getRepositoryString(props.github), 'main'),
+    //     commands: [
+    //       'npm ci',
+    //       'npm run build',
+    //       'npx cdk synth',
+    //     ],
+    //   }),
+    // });
 
     // pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage'));
   }

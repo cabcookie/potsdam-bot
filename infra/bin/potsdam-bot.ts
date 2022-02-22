@@ -18,6 +18,6 @@ const stack = new PotsdamBotStack(app, 'PotsdamBotStack', {
   },
 });
 
-Tags.of(stack).add("Project", "CDK Pipeline Starter Kit");
+Tags.of(stack).add("Project", "Potsdam Bot");
 
 app.synth();
