@@ -1,32 +1,28 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
-import { Bucket } from 'aws-cdk-lib/aws-s3';
-import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 import { Construct } from 'constructs';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
+
 import { PBotCrawlerStage } from './pbot-crawler-stage';
 
-export interface GithubProps {
-  readonly owner: string;
-  readonly repository: string;
-}
-
 export interface PotsdamBotStackProps extends StackProps {
-  readonly github: GithubProps;
+  readonly githubRepositoryOwner: string;
+  readonly githubRepositoryName: string;
 }
 
-const getRepositoryString = ({ owner, repository }: GithubProps): string => `${owner}/${repository}`;
+const getRepositoryString = (pipelineStackProps: PotsdamBotStackProps): string => {
+  return `${pipelineStackProps.githubRepositoryOwner}/${pipelineStackProps.githubRepositoryName}`;
+};
 
 export class PotsdamBotStack extends Stack {
   constructor(scope: Construct, id: string, props: PotsdamBotStackProps) {
     super(scope, id, props);
 
-    console.log('Github:', props.github);
-    console.log('Github repo string:', getRepositoryString(props.github));
-    
+    console.log('Github repository:', getRepositoryString(props));
     
     const pipeline = new CodePipeline(this, 'PBotPipeline', {
       pipelineName: 'PotsdamBot',
       synth: new ShellStep('SynthStep', {
-        input: CodePipelineSource.gitHub(getRepositoryString(props.github), 'main'),
+        input: CodePipelineSource.gitHub(getRepositoryString(props), 'main'),
         commands: [
           'npm ci',
           'npm run build',
@@ -35,6 +31,7 @@ export class PotsdamBotStack extends Stack {
       }),
     });
 
-    // pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage'));
+
+    pipeline.addStage(new PBotCrawlerStage(this, 'PBotCrawlerStage'));
   }
 }

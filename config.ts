@@ -1,8 +1,6 @@
-import { GithubProps } from "./infra/lib/potsdam-bot-stack";
-
 export const config = {
   github: {
-    owner: 'cabcookie',
+    owner: "cabcookie",
     repository: 'potsdam-bot',
-  } as GithubProps,
+  },
 };
