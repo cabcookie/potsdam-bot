@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.44](https://github.com/cabcookie/potsdam-bot/compare/v0.1.43...v0.1.44) (2022-02-22)
+
+
+### Bug Fixes
+
+* **unstable:** adding the pipeline ([7c29481](https://github.com/cabcookie/potsdam-bot/commit/7c294817936820ccfe98b462765102d20686302f))
+
 ### [0.1.43](https://github.com/cabcookie/potsdam-bot/compare/v0.1.42...v0.1.43) (2022-02-22)
 
 
